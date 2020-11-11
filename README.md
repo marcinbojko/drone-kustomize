@@ -1,6 +1,6 @@
 # Drone kustomize plugin
 
-Kustomize plugin for Drone CI. 
+Kustomize plugin for Drone CI.
 
 # Usage
 
@@ -16,5 +16,8 @@ steps:
     settings:
       kubeconfig:
         from_secret: kubeconfig
-      basepath: deploy/envs/stage
+      filepath: deploy/overlays/production/kustomization.yaml
+      debug: true
+      dryrun: true
+
 ```
