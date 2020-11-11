@@ -6,8 +6,8 @@ Kustomize plugin for Drone CI.
 
 
 The most basic usage requires `kubeconfig` (preferably as secret) with
-kubeconfig content and `basepath` pointing to a path inside a repo where
-`kustomization.yaml` file is placed.
+kubeconfig content and `folderpath` pointing to a path inside a repo where
+`kustomization.yaml` file is placed. For debugging purpose one can set `debug` and `dryrun ` flags which default to `false`
 
 ```
 steps:
@@ -16,7 +16,7 @@ steps:
     settings:
       kubeconfig:
         from_secret: kubeconfig
-      filepath: deploy/overlays/production/kustomization.yaml
+      folderpath: deploy/overlays/production
       debug: true
       dryrun: true
 
