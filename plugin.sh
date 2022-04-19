@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -eu pipefail
 
@@ -16,10 +16,10 @@ fi
 
 if [ -n "$PLUGIN_KUBECONFIG" ];then
     #[ -d $HOME/.kube ] || mkdir $HOME/.kube  # uncomment post testing
-    [ -d $HOME/.test ] || mkdir $HOME/.test # delete post testing
+    [ -d "$HOME"/.test ] || mkdir -p "$HOME"/.test # delete post testing
     echo "# Plugin PLUGIN_KUBECONFIG available" >&2
     #echo "$PLUGIN_KUBECONFIG" > $HOME/.kube/config # uncomment post testing
-    echo "$PLUGIN_KUBECONFIG" > $HOME/.test/config # delete post testing
+    echo "$PLUGIN_KUBECONFIG" > "$HOME"/.test/config # delete post testing
     unset PLUGIN_KUBECONFIG
 fi
 

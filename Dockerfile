@@ -1,13 +1,13 @@
-FROM alpine
-RUN apk add --no-cache curl make git bash
+FROM marcinbojko/pipetools-k8s:v0.20.20 AS build
 
-# install kubectl
-RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ./kubectl && sudo mv ./kubectl /usr/bin/kubectl
-RUN kubectl version
+LABEL version="v1.0.1"
+LABEL release="drone-kustomize"
+LABEL maintainer="marcinbojko"
+SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
 
 # install kustomize
-RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash && chmod +x ./kustomize && mv kustomize /usr/bin/kustomize
-RUN kustomize version
+RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash && chmod +x ./kustomize && mv kustomize /usr/bin/kustomize \
+&& kustomize version
 
 # copy plugin.sh which contains deployment logic
 COPY plugin.sh /drone/
