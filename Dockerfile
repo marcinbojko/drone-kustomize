@@ -1,6 +1,6 @@
 FROM marcinbojko/pipetools-k8s:v0.20.20 AS build
 
-LABEL version="v1.0.1"
+LABEL version="v1.0.2"
 LABEL release="drone-kustomize"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]

@@ -2,10 +2,11 @@
 
 set -eu pipefail
 
-PLUGIN_KUBECONFIG="test data" ##remove post testing
-PLUGIN_FOLDERPATH="deploy/overlays/production" # remove post testing
-PLUGIN_DEBUG=false
-PLUGIN_DRYRUN=true # set to true post testing
+#PLUGIN_KUBECONFIG="test data" ##remove post testing
+#PLUGIN_FOLDERPATH="deploy/overlays/production" # remove post testing
+#PLUGIN_DEBUG=false
+#PLUGIN_DRYRUN=true # set to true post testing
+env
 
 "${PLUGIN_DEBUG:-false}" && set -x
 
@@ -15,11 +16,11 @@ if [ -z "$PLUGIN_KUBECONFIG" ] || [ -z "$PLUGIN_FOLDERPATH" ]; then
 fi
 
 if [ -n "$PLUGIN_KUBECONFIG" ];then
-    #[ -d $HOME/.kube ] || mkdir $HOME/.kube  # uncomment post testing
-    [ -d "$HOME"/.test ] || mkdir -p "$HOME"/.test # delete post testing
+    [ -d "$HOME"/.kube ] || mkdir "$HOME"/.kube  # uncomment post testing
+    #[ -d "$HOME"/.test ] || mkdir -p "$HOME"/.test # delete post testing
     echo "# Plugin PLUGIN_KUBECONFIG available" >&2
-    #echo "$PLUGIN_KUBECONFIG" > $HOME/.kube/config # uncomment post testing
-    echo "$PLUGIN_KUBECONFIG" > "$HOME"/.test/config # delete post testing
+    echo "$PLUGIN_KUBECONFIG" > "$HOME"/.kube/config # uncomment post testing
+    #echo "$PLUGIN_KUBECONFIG" > "$HOME"/.test/config # delete post testing
     unset PLUGIN_KUBECONFIG
 fi
 
