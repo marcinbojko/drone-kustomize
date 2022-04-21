@@ -2,12 +2,6 @@
 
 set -eu pipefail
 
-#PLUGIN_KUBECONFIG="test data" ##remove post testing
-#PLUGIN_FOLDERPATH="deploy/overlays/production" # remove post testing
-#PLUGIN_DEBUG=false
-#PLUGIN_DRYRUN=true # set to true post testing
-env
-
 "${PLUGIN_DEBUG:-false}" && set -x
 
 if [ -z "$PLUGIN_KUBECONFIG" ] || [ -z "$PLUGIN_FOLDERPATH" ]; then
