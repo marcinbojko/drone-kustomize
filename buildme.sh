@@ -13,7 +13,7 @@ else
   exit 1
 fi
 if [ -n "$version" ] && [ -n "$release" ]; then
-  docker build --pull --no-cache --squash -t "$release":"$version" .
+  docker build --pull --no-cache -t "$release":"$version" .
   build_status=$?
   docker container prune --force
   # let's tag latest
@@ -29,8 +29,7 @@ if [ "$build_status" == 0 ]; then
   rm -rf ./.*.txt||true
   date > "$coverage"
   echo "Checking versions"
-  docker run -it "$release:$version" helm version -c >>"$coverage"
-  docker run -it "$release:$version" kubectl version --client=true >>"$coverage"
+  docker run -e PLUGIN_VERSIONS=true -e PLUGIN_KUBECONFIG=aaa -e PLUGIN_FOLDERPATH=. -it "$release:$version" >> "$coverage"
   echo "Checking Trivy"
   trivy image --output .coverage."$version"_trivy.txt "$release":"$version"
   echo "Checking Dive"
