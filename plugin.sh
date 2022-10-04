@@ -5,12 +5,34 @@ if [[ "$PLUGIN_VERSIONS" == "true" ]]; then
     echo "Versions: kubectl       - $(kubectl version --client)"
     echo "Versions: kustomize     - $(kustomize version)"
     echo "Versions: kubeconform   - $(kubeconform -v)"
+    echo "Versions: datree        - $(datree version)"
     echo "Variables: PLUGIN_NAMESPACE - $PLUGIN_NAMESPACE"
 fi
 
 set -eu pipefail
 
 "${PLUGIN_DEBUG:-false}" && set -x
+
+
+# let's check for defaults in datree parameters
+if [[ -z "${PLUGIN_DATREE_PARAMETERS:-}" ]]; then
+    PLUGIN_DATREE_PARAMETERS="--ignore-missing-schemas --verbose --no-record"
+fi
+
+if [[ -z "${PLUGIN_DATREE_CHECK:-}" ]]; then
+    PLUGIN_DATREE_CHECK="false"
+fi
+
+# First let's check for datree
+# We don't require mandatory stuff like kubeconfig or namespace
+
+if [[ "$PLUGIN_DATREE_CHECK" == "true" ]] || [[ -n "$PLUGIN_FOLDERPATH" ]]; then
+        echo "Checking : $PLUGIN_FOLDERPATH"
+        datree kustomize test "$PLUGIN_FOLDERPATH" $PLUGIN_DATREE_PARAMETERS
+        echo "Folder   : $PLUGIN_FOLDERPATH check completed"
+fi
+
+#then let's contonue
 
 if [ "$PLUGIN_KUSTOMIZE_DEPLOY" == "true" ]; then
     if [ -z "$PLUGIN_KUBECONFIG" ] || [ -z "$PLUGIN_FOLDERPATH" ]; then

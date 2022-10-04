@@ -29,7 +29,7 @@ if [ "$build_status" == 0 ]; then
   rm -rf ./.*.txt||true
   date > "$coverage"
   echo "Checking versions"
-  docker run -e PLUGIN_VERSIONS=true -e PLUGIN_KUBECONFIG=aaa -e PLUGIN_FOLDERPATH=. -it "$release:$version" >> "$coverage"
+  docker run -e PLUGIN_VERSIONS=true -e PLUGIN_KUBECONFIG=aaa -e PLUGIN_KUSTOMIZE_DEPLOY=false -e PLUGIN_FOLDERPATH=. -e PLUGIN_DATREE_CHECK=false -it "$release:$version" >> "$coverage"
   echo "Checking Trivy"
   trivy image --output .coverage."$version"_trivy.txt "$release":"$version"
   echo "Checking Dive"
