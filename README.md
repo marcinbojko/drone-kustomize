@@ -63,7 +63,6 @@ steps:
 By providing `PLUGIN_NAMESPACE` all kustomize manifests are deployed to this namespace. If ommited, kubectl deploys to default namespace.
 If you manifest has 'namespace' set as parameter, this setting won't override it.
 
-
 ## Forked from
 
 [https://github.com/gaurav-magassian/drone-kustomize](https://github.com/gaurav-magassian/drone-kustomize)

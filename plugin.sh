@@ -9,7 +9,7 @@ if [[ "$PLUGIN_VERSIONS" == "true" ]]; then
     echo "Variables: PLUGIN_NAMESPACE - $PLUGIN_NAMESPACE"
 fi
 
-set -eu pipefail
+set -e pipefail
 
 "${PLUGIN_DEBUG:-false}" && set -x
 
