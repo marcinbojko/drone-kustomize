@@ -60,7 +60,7 @@ if [[ "$PLUGIN_KUBECONFORM_BUILD" == "true" ]]; then
     fi
     for DIR in $(echo "$PLUGIN_KUBECONFORM_PATHS" |tr , " "); do
         echo "$DIR"
-        kustomize build "$DIR" | kubeconform -summary "$PLUGIN_KUBECONFORM_PARAMETERS"
+        kustomize build "$DIR" | kubeconform -summary $PLUGIN_KUBECONFORM_PARAMETERS
         echo "------------------"
     done
 fi
