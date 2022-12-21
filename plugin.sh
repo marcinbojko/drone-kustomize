@@ -23,13 +23,16 @@ if [[ -z "${PLUGIN_DATREE_CHECK:-}" ]]; then
     PLUGIN_DATREE_CHECK="false"
 fi
 
+
 # First let's check for datree
 # We don't require mandatory stuff like kubeconfig or namespace
 
-if [[ "$PLUGIN_DATREE_CHECK" == "true" ]] || [[ -n "$PLUGIN_FOLDERPATH" ]]; then
+if [ "$PLUGIN_DATREE_CHECK" == "true" ] && [ -n "$PLUGIN_FOLDERPATH" ]; then
         echo "Checking : $PLUGIN_FOLDERPATH"
         datree kustomize test "$PLUGIN_FOLDERPATH" $PLUGIN_DATREE_PARAMETERS
         echo "Folder   : $PLUGIN_FOLDERPATH check completed"
+else
+    echo "Skipping Datree Check: PLUGIN_DATREE_CHECK - $PLUGIN_DATREE_CHECK"
 fi
 
 #then let's contonue
