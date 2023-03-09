@@ -16,7 +16,7 @@ set -e pipefail
 
 # let's check for defaults in datree parameters
 if [[ -z "${PLUGIN_DATREE_PARAMETERS:-}" ]]; then
-    PLUGIN_DATREE_PARAMETERS="--ignore-missing-schemas --verbose --no-record"
+    PLUGIN_DATREE_PARAMETERS="--ignore-missing-schemas --verbose --no-record -p Default -s 1.22.0"
 fi
 
 if [[ -z "${PLUGIN_DATREE_CHECK:-}" ]]; then
