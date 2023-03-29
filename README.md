@@ -6,7 +6,7 @@ Kustomize plugin for Drone CI.
 
 The most basic usage requires `kubeconfig` (preferably as secret) with
 kubeconfig content and `folderpath` pointing to a path inside a repo where
-`kustomization.yaml` file is placed. For debugging purpose one can set `debug` and `dryrun ` flags which default to `false`
+`kustomization.yaml` file is placed. For debugging purpose one can set `debug` and `dryrun` flags which default to `false`
 
 ```yaml
 steps:
@@ -58,10 +58,30 @@ steps:
       datree_parameters: "--ignore-missing-schemas --verbose --no-record"
 ```
 
-- PLUGIN_NAMESPACE
+- `PLUGIN_NAMESPACE`
 
-By providing `PLUGIN_NAMESPACE` all kustomize manifests are deployed to this namespace. If ommited, kubectl deploys to default namespace.
+By providing `PLUGIN_NAMESPACE` all kustomize manifests are deployed to this namespace (kubectl --namespace=PLUGIN_NAMESPACE). If ommited, kubectl deploys to default namespace.
 If you manifest has 'namespace' set as parameter, this setting won't override it.
+
+- `PLUGIN_CONTEXT`
+
+```yaml
+steps:
+  - name: deploy-stage
+    image: marcinbojko/drone-kustomize
+    settings:
+      kubeconfig:
+        from_secret: kubeconfig
+      folderpath: deploy/overlays/production
+      debug: true
+      dryrun: true
+      versions: true
+      context: some-context-from-kube-config
+      datree_check: true
+      datree_parameters: "--ignore-missing-schemas --verbose --no-record"
+```
+
+By providing non empy `PLUGIN_CONTEXT` variable kubectl will run with --context=PLUGIN_CONTEXT
 
 ## Forked from
 

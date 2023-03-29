@@ -4,7 +4,7 @@ ENV KUBE_VERSION=v1.22.17
 ENV HELM_VERSION=v3.11.1
 ENV HELM_FILENAME=helm-${HELM_VERSION}-linux-amd64.tar.gz
 ENV TZ=Europe/Warsaw
-LABEL version="v1.0.18"
+LABEL version="v1.0.19"
 LABEL release="drone-kustomize"
 LABEL maintainer="marcinbojko"
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
