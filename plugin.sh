@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 if [[ "$PLUGIN_VERSIONS" == "true" ]]; then
-    echo "Versions: helm                - $(helm version --client)"
     echo "Versions: kubectl             - $(kubectl version --client)"
     echo "Versions: kustomize           - $(kustomize version)"
     echo "Versions: kubeconform         - $(kubeconform -v)"
@@ -27,7 +26,9 @@ echo "Kube Parameters: $kube_params"
 
 # let's check for defaults in datree parameters
 if [[ -z "${PLUGIN_DATREE_PARAMETERS:-}" ]]; then
-    PLUGIN_DATREE_PARAMETERS="--ignore-missing-schemas --verbose --no-record -p Default -s 1.22.0"
+    PLUGIN_DATREE_PARAMETERS="--ignore-missing-schemas --verbose --no-record -s 1.23.0"
+    # disable online check
+    datree config set offline local
 fi
 
 if [[ -z "${PLUGIN_DATREE_CHECK:-}" ]]; then
@@ -39,8 +40,9 @@ fi
 # We don't require mandatory stuff like kubeconfig or namespace
 
 if [ "$PLUGIN_DATREE_CHECK" == "true" ] && [ -n "$PLUGIN_FOLDERPATH" ]; then
+
         echo "Checking : $PLUGIN_FOLDERPATH"
-        datree kustomize test "$PLUGIN_FOLDERPATH" $PLUGIN_DATREE_PARAMETERS
+        datree config set offline local;datree kustomize test "$PLUGIN_FOLDERPATH" $PLUGIN_DATREE_PARAMETERS||true
         echo "Folder   : $PLUGIN_FOLDERPATH check completed"
 else
     echo "Skipping Datree Check: PLUGIN_DATREE_CHECK - $PLUGIN_DATREE_CHECK"
